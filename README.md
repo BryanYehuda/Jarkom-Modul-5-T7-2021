@@ -10,13 +10,13 @@
 ## Soal Modul 5
 Setelah kalian mempelajari semua modul yang telah diberikan, Luffy ingin meminta bantuan untuk terakhir kalinya kepada kalian. Dan kalian dengan senang hati mau membantu Luffy.      
 1. Tugas pertama kalian yaitu membuat topologi jaringan sesuai dengan rancangan yang diberikan Luffy
-2. Keterangan : 	Doriki adalah DNS Server
-		Jipangu adalah DHCP Server
-		Maingate dan Jorge adalah Web Server
-		Jumlah Host pada Blueno adalah 100 host
-		Jumlah Host pada Cipher adalah 700 host
-		Jumlah Host pada Elena adalah 300 host
-		Jumlah Host pada Fukurou adalah 200 host
+2. Keterangan : 	Doriki adalah DNS Server     
+		Jipangu adalah DHCP Server     
+		Maingate dan Jorge adalah Web Server      
+		Jumlah Host pada Blueno adalah 100 host      
+		Jumlah Host pada Cipher adalah 700 host      
+		Jumlah Host pada Elena adalah 300 host       
+		Jumlah Host pada Fukurou adalah 200 host        
 3. Karena kalian telah belajar subnetting dan routing, Luffy ingin meminta kalian untuk membuat topologi tersebut menggunakan teknik CIDR atau VLSM. setelah melakukan subnetting, 
 4. Kalian juga diharuskan melakukan Routing agar setiap perangkat pada jaringan tersebut dapat terhubung.
 5. Tugas berikutnya adalah memberikan ip pada subnet Blueno, Cipher, Fukurou, dan Elena secara dinamis menggunakan bantuan DHCP server. Kemudian kalian ingat bahwa kalian harus setting DHCP Relay pada router yang menghubungkannya.
@@ -44,6 +44,7 @@ route add -net 0.0.0.0 netmask 0.0.0.0 gw 10.45.7.145
 route add -net 0.0.0.0 netmask 0.0.0.0 gw 10.45.7.149
 ```   
 [ Doriki adalah DNS Server ]
+Pada File  > /etc/bind/named.conf.options
 ```
 apt update
 apt install bind9 -y
@@ -57,18 +58,18 @@ options {
         auth-nxdomain no;    # conform to RFC1035
         listen-on-v6 { any; };
 };
-
-' > /etc/bind/named.conf.options
-service bind9 restart
 ```
+Kemudian lakukan Restart Dengan `service bind9 restart`
 [ Jipangu adalah DHCP Server ]
+Pada File  > /etc/default/isc-dhcp-server
 ```
 apt update
 apt install isc-dhcp-server -y
 echo '
 INTERFACES="eth0"
-' > /etc/default/isc-dhcp-server
-
+```
+Pada File > /etc/dhcp/dhcpd.conf
+```
 echo '
 ddns-update-style none;
 option domain-name "example.org";
@@ -112,9 +113,8 @@ subnet 10.45.7.128 netmask 255.255.255.248 {}
 subnet 10.45.7.144 netmask 255.255.255.252 {}
 subnet 10.45.7.148 netmask 255.255.255.252 {}
 subnet 10.45.7.136 netmask 255.255.255.248 {}
-' > /etc/dhcp/dhcpd.conf
-service isc-dhcp-server restart
-```
+``` 
+Lakukan Restart Dengan `service isc-dhcp-server restart`
 
 [ Maingate dan Jorge adalah Web Server ]
 ```
@@ -151,7 +151,7 @@ Karena kelompok kalian maksimal terdiri dari 3 orang. Luffy meminta kalian untuk
 ```
 iptables -A INPUT -p icmp -m connlimit --connlimit-above 3 --connlimit-mask 0 -j DROP
 ```
-[ Doriki ]
+[ Doriki ]     
 Reject bila terdapat PING ICMP Lebih dari 3
 ```
 iptables -A INPUT -p icmp -m connlimit --connlimit-above 3 --connlimit-mask 0 -j DROP
@@ -160,9 +160,9 @@ iptables -A INPUT -p icmp -m connlimit --connlimit-above 3 --connlimit-mask 0 -j
 Akses dari subnet Blueno dan Cipher hanya diperbolehkan pada pukul 07.00 - 15.00 pada hari Senin sampai Kamis
 
 ### Jawaban Nomor 4
-[ Doriki ]
-Akses dari subnet Blueno dan Cipher
-[ Blueno ]
+[ Doriki ]     
+Akses dari subnet Blueno dan Cipher    
+[ Blueno ]    
 ```
 iptables -A INPUT -s 10.45.7.0/25 -m time --weekdays Fri,Sat,Sun -j REJECT
 iptables -A INPUT -s 10.45.7.0/25 -m time --timestart 00:00 --timestop 06:59 --weekdays Mon,Tue,Wed,Thu -j REJECT
