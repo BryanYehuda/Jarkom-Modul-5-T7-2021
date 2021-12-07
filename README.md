@@ -24,7 +24,7 @@ Setelah kalian mempelajari semua modul yang telah diberikan, Luffy ingin meminta
 ## Jawaban Modul 
 
 ### Routing
-[ Fosha ]
+[ Foosha ]
 ```
 route add -net 10.45.7.0 netmask 255.255.255.128 gw 10.45.7.146 #BLUENO
 route add -net 10.45.0.0 netmask 255.255.252.0 gw 10.45.7.146 #CIPHER
@@ -42,8 +42,9 @@ route add -net 0.0.0.0 netmask 0.0.0.0 gw 10.45.7.145
 [ Guanhao ]
 ```
 route add -net 0.0.0.0 netmask 0.0.0.0 gw 10.45.7.149
+```   
+[ Doriki adalah DNS Server ]
 ```
-### Doriki adalah DNS Server
 apt update
 apt install bind9 -y
 echo '
@@ -59,7 +60,9 @@ options {
 
 ' > /etc/bind/named.conf.options
 service bind9 restart
-### Jipangu adalah DHCP Server
+```
+[ Jipangu adalah DHCP Server ]
+```
 apt update
 apt install isc-dhcp-server -y
 echo '
@@ -111,15 +114,24 @@ subnet 10.45.7.148 netmask 255.255.255.252 {}
 subnet 10.45.7.136 netmask 255.255.255.248 {}
 ' > /etc/dhcp/dhcpd.conf
 service isc-dhcp-server restart
-### Maingate dan Jorge adalah Web Server
+```
+
+[ Maingate dan Jorge adalah Web Server ]
+```
 apt update
 apt install apache2 -y
 service apache2 start
 echo "$HOSTNAME" > /var/www/html/index.html
+```
 
-### nomor 1
-[ FOSHA ]
+### Soal Nomor 1
+Agar topologi yang kalian buat dapat mengakses keluar, kalian diminta untuk mengkonfigurasi Foosha menggunakan iptables, tetapi Luffy tidak ingin menggunakan MASQUERADE.
+
+### Jawaban Nomor 1
+[ FOOSHA ]
+```
 iptables -A INPUT -p icmp -m connlimit --connlimit-above 3 --connlimit-mask 0 -j DROP
+```
 
 ### nomor 2
 [ FOSHA ]
