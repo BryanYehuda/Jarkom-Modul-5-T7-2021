@@ -10,8 +10,9 @@
 ## Soal Modul 5
 Setelah kalian mempelajari semua modul yang telah diberikan, Luffy ingin meminta bantuan untuk terakhir kalinya kepada kalian. Dan kalian dengan senang hati mau membantu Luffy.      
 1. Tugas pertama kalian yaitu membuat topologi jaringan sesuai dengan rancangan yang diberikan Luffy
-2. Keterangan : 	Doriki adalah DNS Server     
-		Jipangu adalah DHCP Server     
+2. Keterangan : 	      
+        Doriki adalah DNS Server        
+		Jipangu adalah DHCP Server       
 		Maingate dan Jorge adalah Web Server      
 		Jumlah Host pada Blueno adalah 100 host      
 		Jumlah Host pada Cipher adalah 700 host      
@@ -59,9 +60,9 @@ options {
         listen-on-v6 { any; };
 };
 ```
-Kemudian lakukan Restart Dengan `service bind9 restart`
-[ Jipangu adalah DHCP Server ]
-Pada File  > /etc/default/isc-dhcp-server
+Kemudian lakukan Restart Dengan `service bind9 restart`      
+[ Jipangu adalah DHCP Server ]        
+Pada File  > /etc/default/isc-dhcp-server     
 ```
 apt update
 apt install isc-dhcp-server -y
