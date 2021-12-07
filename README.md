@@ -142,14 +142,20 @@ Kalian diminta untuk mendrop semua akses HTTP dari luar Topologi kalian pada ser
 iptables -A FORWARD -d 10.45.7.131 -i eth0 -p tcp --dport 80 -j DROP
 iptables -A FORWARD -d 10.45.7.130 -i eth0 -p tcp --dport 80 -j DROP
 ```
+
+### Soal Nomor 3
+Karena kelompok kalian maksimal terdiri dari 3 orang. Luffy meminta kalian untuk membatasi DHCP dan DNS Server hanya boleh menerima maksimal 3 koneksi ICMP secara bersamaan menggunakan iptables, selebihnya didrop.
+
 ### nomor 3
 [ Jipangu ]
+```
 iptables -A INPUT -p icmp -m connlimit --connlimit-above 3 --connlimit-mask 0 -j DROP
-
+```
 [ Doriki ]
-#No. 3 Reject bila terdapat PING ICMP Lebih dari 3
+Reject bila terdapat PING ICMP Lebih dari 3
+```
 iptables -A INPUT -p icmp -m connlimit --connlimit-above 3 --connlimit-mask 0 -j DROP
-
+```
 ### nomor 4
 [ Doriki ]
 #No. 4 Akses dari subnet Blueno dan Cipher
