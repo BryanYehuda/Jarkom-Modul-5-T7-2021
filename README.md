@@ -133,11 +133,15 @@ Agar topologi yang kalian buat dapat mengakses keluar, kalian diminta untuk meng
 iptables -A INPUT -p icmp -m connlimit --connlimit-above 3 --connlimit-mask 0 -j DROP
 ```
 
-### nomor 2
-[ FOSHA ]
+### Soal Nomor 2
+Kalian diminta untuk mendrop semua akses HTTP dari luar Topologi kalian pada server yang merupakan DHCP Server dan DNS Server demi menjaga keamanan.
+
+### Jawaban Nomor 2
+[ FOOSHA ]
+```
 iptables -A FORWARD -d 10.45.7.131 -i eth0 -p tcp --dport 80 -j DROP
 iptables -A FORWARD -d 10.45.7.130 -i eth0 -p tcp --dport 80 -j DROP
-
+```
 ### nomor 3
 [ Jipangu ]
 iptables -A INPUT -p icmp -m connlimit --connlimit-above 3 --connlimit-mask 0 -j DROP
