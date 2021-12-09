@@ -24,6 +24,17 @@ Setelah kalian mempelajari semua modul yang telah diberikan, Luffy ingin meminta
 
 ## Jawaban Modul 
 ### Perhitungan VLSM
+Berikut adalah topologi dan pembagian subnet
+
+![]('Images/topologi_VLSM.png')
+
+Berikut adalah Tree yang sudah kita buat
+
+![]('Images/Tree_VLSM.png')
+
+Berikut adalah Perhitungannya
+
+![]('Images/Perhitungan_VLSM.png')
 
 ### Konfigurasi Network setiap node
 [ Fosha ]
@@ -257,7 +268,8 @@ Agar topologi yang kalian buat dapat mengakses keluar, kalian diminta untuk meng
 ### Jawaban Nomor 1
 [ FOOSHA ]
 ```
-iptables -A INPUT -p icmp -m connlimit --connlimit-above 3 --connlimit-mask 0 -j DROP
+IPETH0="$(ip -br a | grep eth0 | awk '{print $NF}' | cut -d'/' -f1)"
+iptables -t nat -A POSTROUTING -o eth0 -j SNAT --to-source "$IPETH0" -s 10.45.0.0/21
 ```
 
 ### Soal Nomor 2
@@ -275,6 +287,7 @@ Karena kelompok kalian maksimal terdiri dari 3 orang. Luffy meminta kalian untuk
 
 ### Jawaban Nomor 3
 [ Jipangu ]
+Reject bila terdapat PING ICMP Lebih dari 3
 ```
 iptables -A INPUT -p icmp -m connlimit --connlimit-above 3 --connlimit-mask 0 -j DROP
 ```
@@ -287,8 +300,7 @@ iptables -A INPUT -p icmp -m connlimit --connlimit-above 3 --connlimit-mask 0 -j
 Akses dari subnet Blueno dan Cipher hanya diperbolehkan pada pukul 07.00 - 15.00 pada hari Senin sampai Kamis
 
 ### Jawaban Nomor 4
-[ Doriki ]     
-Akses dari subnet Blueno dan Cipher    
+ 
 [ Blueno ]    
 ```
 iptables -A INPUT -s 10.45.7.0/25 -m time --weekdays Fri,Sat,Sun -j REJECT
