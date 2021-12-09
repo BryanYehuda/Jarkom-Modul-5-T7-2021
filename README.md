@@ -26,15 +26,15 @@ Setelah kalian mempelajari semua modul yang telah diberikan, Luffy ingin meminta
 ### Perhitungan VLSM
 Berikut adalah topologi dan pembagian subnet
 
-![]('Images/topologi_VLSM.png')
+![image](Images/topologi_VLSM.png)
 
 Berikut adalah Tree yang sudah kita buat
 
-![]('Images/Tree_VLSM.png')
+![](Images/Tree_VLSM.png)
 
 Berikut adalah Perhitungannya
 
-![]('Images/Perhitungan_VLSM.png')
+![](Images/Perhitungan_VLSM.png)
 
 ### Konfigurasi Network setiap node
 [ Fosha ]
