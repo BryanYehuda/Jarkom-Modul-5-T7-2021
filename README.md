@@ -23,8 +23,110 @@ Setelah kalian mempelajari semua modul yang telah diberikan, Luffy ingin meminta
 5. Tugas berikutnya adalah memberikan ip pada subnet Blueno, Cipher, Fukurou, dan Elena secara dinamis menggunakan bantuan DHCP server. Kemudian kalian ingat bahwa kalian harus setting DHCP Relay pada router yang menghubungkannya.
 
 ## Jawaban Modul 
+### Perhitungan VLSM
 
-### Routing
+### Konfigurasi Network setiap node
+[ Fosha ]
+```
+auto eth0
+iface eth0 inet dhcp
+
+auto eth1
+iface eth1 inet static
+	address 10.45.7.145
+	netmask 255.255.255.252
+
+auto eth2
+iface eth2 inet static
+	address 10.45.7.149
+	netmask 255.255.255.252
+```
+
+[ Water 7 ]
+```
+auto eth0
+iface eth0 inet static
+	address 10.45.7.146
+	netmask 255.255.255.252
+auto eth1
+iface eth1 inet static
+	address 10.45.7.129
+	netmask 255.255.255.248
+auto eth2
+iface eth2 inet static
+	address 10.45.7.1
+	netmask 255.255.255.128
+auto eth3
+iface eth3 inet static
+	address 10.45.0.1
+	netmask 255.255.252.0
+```
+
+[  Guanhao ]
+```
+auto eth0
+iface eth0 inet static
+	address 10.45.7.150
+	netmask 255.255.255.252
+auto eth1
+iface eth1 inet static
+	address  10.45.7.137
+	netmask 255.255.255.248
+auto eth2
+iface eth2 inet static
+	address  10.45.4.1
+	netmask 255.255.254.0
+auto eth3
+iface eth3 inet static
+	address  10.45.6.1
+	netmask 255.255.255.0
+```
+
+[ BLUENO ], [ CIPHER ], [ ELENA ], [ FUOROU ]
+```
+auto eth0
+iface eth0 inet dhcp
+
+```
+[ DORIKI ]
+```
+auto eth0
+iface eth0 inet static
+	address 10.45.7.130
+	netmask 255.255.255.248
+        gateway 10.45.7.129
+
+
+```
+[ JIPANGU ]
+```
+auto eth0
+iface eth0 inet static
+	address 10.45.7.131
+	netmask 255.255.255.248
+        gateway 10.45.7.129
+```
+
+[ MAINGATE ]
+```
+auto eth0
+iface eth0 inet static
+	address 10.45.7.139
+	netmask 255.255.255.248
+        gateway 10.45.7.137
+```
+
+[ JORGE ]
+```
+auto eth0
+iface eth0 inet static
+	address 10.45.7.138
+	netmask 255.255.255.248
+        gateway 10.45.7.137
+
+```
+
+### Routing dan Konfigurasi DNS, Web server, DHCP Server, dan DHCP relay
 [ Foosha ]
 ```
 route add -net 10.45.7.0 netmask 255.255.255.128 gw 10.45.7.146 #BLUENO
@@ -116,6 +218,30 @@ subnet 10.45.7.148 netmask 255.255.255.252 {}
 subnet 10.45.7.136 netmask 255.255.255.248 {}
 ``` 
 Lakukan Restart Dengan `service isc-dhcp-server restart`
+
+[ GUANHAO sebagai DHCP Relay ]
+```
+apt update
+apt install isc-dhcp-relay -y
+echo '
+SERVERS="10.45.7.131"
+INTERFACES="eth2 eth3 eth1 eth0"
+OPTIONS=""
+' > /etc/default/isc-dhcp-relay
+service isc-dhcp-relay restart
+```
+
+[ WATER7 sebagai DHCP Relay ]
+```
+apt update
+apt install isc-dhcp-relay -y
+echo '
+SERVERS="10.45.7.131"
+INTERFACES="eth2 eth3 eth0 eth1"
+OPTIONS=""
+' > /etc/default/isc-dhcp-relay
+service isc-dhcp-relay restart
+```
 
 [ Maingate dan Jorge adalah Web Server ]
 ```
