@@ -4,7 +4,7 @@
 #### Nama Anggota Kelompok :      
 1. Naufal Aprilian (05311940000007)     
 2. Bryan Yehuda Mannuel (05311940000021)      
-3. Mulki Kusumah    
+3. Mulki Kusumah (05311940000043)  
 
 
 ## Soal Modul 5
@@ -334,3 +334,4 @@ iptables -A PREROUTING -t nat -p tcp -d 10.45.7.130 -j DNAT --to-destination 10.
 ```
 
 ## Kendala
+Tidak Ada
