@@ -262,7 +262,7 @@ service apache2 start
 echo "$HOSTNAME" > /var/www/html/index.html
 ```
 
-### Soal Nomor 1
+## Soal Nomor 1
 Agar topologi yang kalian buat dapat mengakses keluar, kalian diminta untuk mengkonfigurasi Foosha menggunakan iptables, tetapi Luffy tidak ingin menggunakan MASQUERADE.
 
 ### Jawaban Nomor 1
@@ -272,7 +272,7 @@ IPETH0="$(ip -br a | grep eth0 | awk '{print $NF}' | cut -d'/' -f1)"
 iptables -t nat -A POSTROUTING -o eth0 -j SNAT --to-source "$IPETH0" -s 10.45.0.0/21
 ```
 
-### Soal Nomor 2
+## Soal Nomor 2
 Kalian diminta untuk mendrop semua akses HTTP dari luar Topologi kalian pada server yang merupakan DHCP Server dan DNS Server demi menjaga keamanan.
 
 ### Jawaban Nomor 2
@@ -282,7 +282,7 @@ iptables -A FORWARD -d 10.45.7.131 -i eth0 -p tcp --dport 80 -j DROP
 iptables -A FORWARD -d 10.45.7.130 -i eth0 -p tcp --dport 80 -j DROP
 ```
 
-### Soal Nomor 3
+## Soal Nomor 3
 Karena kelompok kalian maksimal terdiri dari 3 orang. Luffy meminta kalian untuk membatasi DHCP dan DNS Server hanya boleh menerima maksimal 3 koneksi ICMP secara bersamaan menggunakan iptables, selebihnya didrop.
 
 ### Jawaban Nomor 3
@@ -296,7 +296,7 @@ Reject bila terdapat PING ICMP Lebih dari 3
 ```
 iptables -A INPUT -p icmp -m connlimit --connlimit-above 3 --connlimit-mask 0 -j DROP
 ```
-### Soal Nomor 4
+## Soal Nomor 4
 Akses dari subnet Blueno dan Cipher hanya diperbolehkan pada pukul 07.00 - 15.00 pada hari Senin sampai Kamis
 
 ### Jawaban Nomor 4
@@ -313,7 +313,7 @@ iptables -A INPUT -s 10.45.0.0/22 -m time --weekdays Fri,Sat,Sun -j REJECT
 iptables -A INPUT -s 10.45.0.0/22 -m time --timestart 00:00 --timestop 06:59 --weekdays Mon,Tue,Wed,Thu -j REJECT
 iptables -A INPUT -s 10.45.0.0/22 -m time --timestart 15:01 --timestop 23:59 --weekdays Mon,Tue,Wed,Thu -j REJECT
 ```
-### Soal Nomor 5
+## Soal Nomor 5
 Akses dari subnet Elena dan Fukuro hanya diperbolehkan pada pukul 15.01 hingga pukul 06.59 setiap harinya selain itu di reject
 
 ### Jawaban Nomor 5
@@ -323,7 +323,7 @@ iptables -A INPUT -s 10.45.4.0/23 -m time --timestart 07:00 --timestop 15:00 -j 
 iptables -A INPUT -s 10.45.6.0/24 -m time --timestart 07:00 --timestop 15:00 -j REJECT #Fukuro
 ```
 
-### Soal Nomor 6
+## Soal Nomor 6
 Karena kita memiliki 2 Web Server, Luffy ingin Guanhao disetting sehingga setiap request dari client yang mengakses DNS Server akan didistribusikan secara bergantian pada Jorge dan Maingate
 
 ### Jawaban Nomor 6
